@@ -1,3 +1,7 @@
+"""
+Retrieve XKCD comics, and index them in Elasticsearch
+"""
+import os
 import sys
 import time
 
