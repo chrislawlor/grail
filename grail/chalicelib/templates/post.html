@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %}
+  <div class='container'>
+    <div class='row'>
+			<div class='col'>
+				<h1>{{ name }}</h1>
+				<img src="{{ url }}" />
+				<div class='bs-callout bs-callout-info'>
+					<code>https://s3.amazonaws.com/cml-images/{{ url }}</code>
+				</div>
+				{% if labels %}
+				<p>
+					{% for label in labels %}						
+						<span class='labels badge badge-primary'>{{ label }}</span>
+					{% endfor %}
+				</p>
+				{% endif %}
+				{% if xkcds %}
+					{% for xkcd in xkcds %}
+					<div class='xkcd'>
+						<h3><a href='https://xkcd.com/{{ xkcd.num }}/'>{{ xkcd.title }}</a></h3>
+						<img src='{{ xkcd.img }}' />
+						<p>Published {{ xkcd.month }}/{{ xkcd.day }}/{{ xkcd.year }}</p>
+					</div>
+					{% endfor %}
+				{% else %}
+					<p>No relevant XKCD image found :(</p>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+{% endblock %}

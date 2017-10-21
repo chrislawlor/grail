@@ -1,0 +1,12 @@
+{
+  "dev": {
+    "api_handler_name": "shoebox-dev",
+    "api_handler_arn": "arn:aws:lambda:us-east-1:653884572020:function:shoebox-dev",
+    "lambda_functions": {},
+    "backend": "api",
+    "chalice_version": "1.0.3",
+    "rest_api_id": "7r1sfiku6a",
+    "api_gateway_stage": "api",
+    "region": "us-east-1"
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "rekognition:DetectLabels"
+      ],
+      "Resource": [
+        "*"
+      ],
+      "Sid": "3b684938095d4ce49e7afd9b329e5e4b"
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "s3:PutObject",
+        "s3:PutObjectAcl",
+        "s3:ListBucket"
+      ],
+      "Resource": [
+        "*"
+      ],
+      "Sid": "4bc386cc4ee9470cb8cfb8b6866949fd"
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "logs:CreateLogGroup",
+        "logs:CreateLogStream",
+        "logs:PutLogEvents"
+      ],
+      "Resource": "arn:aws:logs:*:*:*"
+    }
+  ]
+}

@@ -1,0 +1,4 @@
+boto3==1.4.7
+Jinja2==2.9.6
+Pillow==4.3.0
+requests==2.18.4

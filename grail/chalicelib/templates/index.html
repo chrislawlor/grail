@@ -1,0 +1,129 @@
+{% extends "base.html" %} {# copy of http://getbootstrap.com/docs/4.0/examples/album/ #}
+
+{% block extra_head %}{% endblock %}
+
+{% block content %}
+
+	<section class="jumbotron text-center">
+		<div class="container">
+			<h1 class="jumbotron-heading">Grail Publishing</h1>
+			<p class="lead text-muted">
+				A simple image publishing service, built on Amazon's Chalice microframework.
+			</p>
+			<p>
+				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#postingGuideModal">Learn how to post</button>
+				<button type="button" class="btn btn-info" data-toggle="modal" data-target="#codeGuideModal">Learn about the code</button>
+				<a role="button" class="btn btn-dark" href="https://github.com/chrislawlor/grail">View on GitHub</a>
+			</p>
+		</div>
+	</section>
+
+	<div class="album text-muted">
+		<div class="container">
+			<div class="row">
+			  {% for post in posts %}
+				<div class="card">
+					<a href='{{ post.url }}'>
+						<img src='{{ post.thumbnail }}' alt="{{ post.name }}"/>
+					</a>
+					<a href='{{ post.url }}'><strong>{{ post.name }}</strong></a>
+				</div>
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+
+{# Modals #}
+<div id="postingGuideModal" class="modal fade" tabindex="-1" role="dialog">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">How to post</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<p>In the interest of promoting computer literacy, we've decided
+					 to have you use the Terminal to post images.
+				</p>
+				<p>Don't worry, it's easy! We'll even help you write the command
+					 you'll need to run.
+				</p>
+				<form>
+					<div class='form-group'>
+						<label for='js-imagePath'>Path to image</label>
+						<div class='input-group'>
+							<div class='input-group-addon'>${HOME}/</div>
+							<input type='text' class='form-control' id='js-imagePath' placeholder='Pictures/kittens.png'>
+						</div>
+						<small id='imagePathHelp' class='form-text text-muted'>Enter the full path to the image you'd like to share</small>
+					</div>
+					<div class='form-group'>
+							<label for='js-imageTitle'>Title</label>
+							<input type='text' class='form-control' id='js-imageTitle' placeholder='My Favorite Kitten'>
+							<small id='imagePathHelp' class='form-text text-muted'>Give a name to your image.</small>
+					</div>
+					<button id="js-createCommandButton" type="button" class="btn btn-primary">Create command</button>
+				</form>
+				<div id='js-commandDisplayArea' style='display:none'>
+					<p>Run the following command in your Terminal:</p>
+					<div class='bs-callout bs-callout-info'>
+						<code class='callout' id='js-postCommand'>
+						</code>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="codeGuideModal" class="modal fade" tabindex="-1" role="dialog">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">About the code</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					{% include 'includes/goals.html' %}
+				</div>
+				<div class="modal-footer">
+					
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+
+{% block extra_js %}
+<script type='text/javascript'>
+	$(document).ready(function(){
+		const postCommand = $('#js-postCommand');
+		const imagePath = $("#js-imagePath");
+		const imageTitle = $('#js-imageTitle');
+		const createCommandButton = $("#js-createCommandButton");
+		const copyCommandButton = $('#js-copyCommandButton');
+		const commandDisplayArea = $('#js-commandDisplayArea');
+
+		const generatePostCommand = function(){
+			
+			var command = 'curl --request POST --data-binary "@${HOME}/'
+								    + imagePath[0].value + '" -H "Content-Type: image/png" http://localhost:8000/upload/'
+								    + encodeURI(imageTitle[0].value);
+			postCommand.text(command);
+			commandDisplayArea.show();
+		}
+		createCommandButton.on('click', generatePostCommand);
+
+
+	});
+</script>
+{% endblock %}
