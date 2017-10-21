@@ -116,7 +116,7 @@
 		const generatePostCommand = function(){
 			
 			var command = 'curl --request POST --data-binary "@${HOME}/'
-								    + imagePath[0].value + '" -H "Content-Type: image/png" http://localhost:8000/upload/'
+								    + imagePath[0].value + '" -H "Content-Type: image/png" https://7r1sfiku6a.execute-api.us-east-1.amazonaws.com/api/upload/'
 								    + encodeURI(imageTitle[0].value);
 			postCommand.text(command);
 			commandDisplayArea.show();
